@@ -1,0 +1,31 @@
+mpn = "P6SMB6.8CA"
+manufacturer = "Brightking"
+description = "5.8 V bidirectional TVS, 600 W, SMB (DO-214AA)"
+class = "tvs"
+tj_max = { value = 150, page = 1, note = "TJ, TSTG operating junction and storage temperature range, -65 to +150 °C" }
+
+# No theta_ja: the datasheet gives only a typical RθJA (100 °C/W, page 1).
+
+[datasheet]
+title = "P6SMB series transient voltage suppressor"
+document = "Revision 21-Jul-14"
+url = "https://www.lcsc.com/datasheet/C78395.pdf"
+
+# LCSC lists it as P6SMB6.8CA/TR13, the reel packing. Bidirectional, so the pins have no polarity.
+[pins]
+1 = "K1"
+2 = "K2"
+
+[[variant]]
+mpn = "P6SMB6.8CA/TR13"
+
+# `datasheet verify` reads VRWM as a MIN: the dimensions table above it on page 2 has a "Min." header. It is the
+# stand-off column of the device table.
+[[limit]]
+pins = ["K1"]
+to = "K2"
+bidirectional = true
+abs_max = { none = "the maximum ratings table rates pulses (600 W at 10/1000 µs) and steady-state power, not a voltage" }
+recommended = { min = -5.80, max = 5.80, page = 2, note = "VRWM reverse stand-off voltage 5.80 V; bidirectional, so ±5.80 V. IR at VRWM is 1000 µA, doubled for a bidirectional part this low (note, page 3)" }
+breakdown = { min = 6.45, max = 7.14, page = 2, note = "VBR at IT = 10 mA" }
+clamp = { volts = 10.5, current = 58.1, page = 2, note = "VC maximum clamping voltage at IPP, 10/1000 µs waveform" }

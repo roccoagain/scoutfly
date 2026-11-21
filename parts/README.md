@@ -543,6 +543,7 @@ against the PDF at that URL.
 | amp board (B1narySolutions/amp-hardware, not a fixture) | TPA3118D2DAPR, TPA6130A2RTJR, TPS3808EG50DBVR, AO3401A, NSVBAT54HT1G, BZT52C12-TP, MPZ1608S221ATA00, SRP1038A-100M, SJ3-35063AG, PJ-102AH, IRF4905PBF |
 | TI parts, on no board yet | TPS3808G50DBVR (the amp board uses its E successor) |
 | JLCPCB basic and common parts, on no board yet | AO3400A, AMS1117-3.3, USBLC6-2SC6, LM358DR2G; the resistor and capacitor families above |
+| JLCPCB basic parts, batch 1 (each a basic part at LCSC when added) | Schottky SS14, SS34, SS210; switching 1N4148W, 1N4148WS; rectifier SM4007PL; TVS P6SMB6.8CA; MOSFET 2N7002 (JSCJ); transistors MMBT3904, MMBT5551, MMBT5401, S8050, SS8050, S9013; LEDs KT-0805Y, KT-0603W, NCD0805R1; RS-485 SP485EEN-L/TR |
 
 Not covered: footprint-only parts with no part number (Tag-Connect pads, SWD pads, solder jumpers).
 

@@ -1,0 +1,79 @@
+mpn = "SP485EEN-L/TR"
+manufacturer = "MaxLinear"
+description = "5 V half-duplex RS-485 transceiver, ±15 kV ESD on A and B, -40 to 85 °C, NSOIC-8"
+class = "ic"
+temperature = { min = -40, max = 85, page = 4, note = "operating temperature, industrial (_E_) grade" }
+
+[datasheet]
+title = "SP481E / SP485E Enhanced Low Power Half-Duplex RS-485 Transceivers"
+document = "SP481E_SP485E_DS_031218, REV 1.0.5"
+url = "https://www.lcsc.com/datasheet/C6855.pdf"
+
+# Pinout, page 1. SP485EEN-L/TR is the industrial grade, NSOIC, lead free, on a reel; SP485EEN-L is the same
+# part in a tube (ordering information, page 9).
+[pins]
+1 = "RO"
+2 = "RE"
+3 = "DE"
+4 = "DI"
+5 = "GND"
+6 = "A"
+7 = "B"
+8 = "VCC"
+
+[[variant]]
+mpn = "SP485EEN-L"
+
+# The absolute maximum ratings on page 2 are a dotted list ("VCC........7.0V"), which `datasheet verify` can't
+# split into columns: it reports 7 V as not found and VCC + 0.5 V as in the wrong column. Both read as written.
+[[limit]]
+pins = ["VCC"]
+to = "GND"
+abs_max = { min = { none = "the maximum ratings give only the supply's maximum" }, max = 7.0, page = 2, note = "VCC" }
+recommended = { min = 4.75, max = 5.25, page = 4, note = "supply voltage VCC, power requirements" }
+
+[[limit]]
+pins = ["DI", "DE", "RE"]
+to = "GND"
+abs_max = { min = -0.3, max = { pin = "VCC", plus = 0.5 }, page = 2, derived = "-0.3 .. VCC + 0.5; input voltages, logic and drivers: -0.3 V to (VCC + 0.5 V)", note = "logic input voltages" }
+recommended = { none = "only the input high (2.0 V min) and low (0.8 V max) thresholds are given, page 2" }
+
+[[limit]]
+pins = ["RO"]
+to = "GND"
+abs_max = { min = -0.3, max = { pin = "VCC", plus = 0.5 }, page = 2, derived = "-0.3 .. VCC + 0.5; output voltages, receivers: -0.3 V to (VCC + 0.5 V)", note = "receiver output voltage" }
+recommended = { none = "the output is driven by the part; no separate operating range is given" }
+
+[[limit]]
+pins = ["A", "B"]
+to = "GND"
+abs_max = { min = -15, max = 15, page = 2, note = "receiver input voltages ±15 V; driver output voltages ±15 V" }
+recommended = { min = -7, max = 12, page = 3, note = "common-mode range -7 V ≤ VCM ≤ 12 V over which the receiver threshold, input resistance and driver short-circuit current are specified" }
+
+[[esd]]
+model = "hbm"
+pins = ["A", "B"]
+volts = 15000
+page = 2
+note = "human body model, A and B pins"
+
+[[esd]]
+model = "hbm"
+pins = ["RO", "RE", "DE", "DI", "GND", "VCC"]
+volts = 3000
+page = 2
+note = "human body model, all other pins"
+
+[[esd]]
+model = "iec-contact"
+pins = ["A", "B"]
+volts = 8000
+page = 2
+note = "IEC 61000-4-2 contact discharge, A and B pins"
+
+[[esd]]
+model = "iec-air"
+pins = ["A", "B"]
+volts = 15000
+page = 2
+note = "IEC 61000-4-2 air discharge, A and B pins"

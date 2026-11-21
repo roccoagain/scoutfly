@@ -1,0 +1,39 @@
+mpn = "MMBT3904"
+manufacturer = "Jiangsu Changjing Electronics (JSCJ)"
+description = "40 V 200 mA NPN bipolar transistor, SOT-23"
+class = "ic"
+theta_ja = { value = 625, page = 1, note = "RθJA thermal resistance from junction to ambient; PC 200 mW collector power dissipation" }
+tj_max = { value = 150, page = 1, note = "TJ operation junction and storage temperature range, -55 to +150 °C" }
+
+[datasheet]
+title = "SOT-23 Plastic-Encapsulate Transistors, MMBT3904 transistor (NPN)"
+document = "Rev. 2.1"
+url = "https://www.lcsc.com/datasheet/C20526.pdf"
+
+# LCSC lists it as MMBT3904(RANGE:100-300); RANGE is the hFE rank. SOT-23 pinning, page 1: 1 base, 2 emitter,
+# 3 collector. gerberus doesn't model a bipolar transistor's channel, so it has only voltage limits.
+[pins]
+1 = "B"
+2 = "E"
+3 = "C"
+
+[[variant]]
+mpn = "MMBT3904(RANGE:100-300)"
+
+[[limit]]
+pins = ["C"]
+to = "B"
+abs_max = { min = { none = "a negative VCB forward-biases the collector-base junction; it is limited by current, not voltage" }, max = 60, page = 1, note = "VCBO collector-base voltage 60 V" }
+recommended = { none = "no recommended operating conditions are given" }
+
+[[limit]]
+pins = ["C"]
+to = "E"
+abs_max = { min = { none = "only VCEO is rated" }, max = 40, page = 1, note = "VCEO collector-emitter voltage 40 V (base open)" }
+recommended = { none = "no recommended operating conditions are given" }
+
+[[limit]]
+pins = ["E"]
+to = "B"
+abs_max = { min = { none = "a negative VEB forward-biases the base-emitter junction; it is limited by base current, not voltage" }, max = 6, page = 1, note = "VEBO emitter-base voltage 6 V" }
+recommended = { none = "no recommended operating conditions are given" }

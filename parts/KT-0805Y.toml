@@ -1,0 +1,36 @@
+mpn = "KT-0805Y"
+manufacturer = "Hubei KENTO Electronic"
+description = "Yellow LED, 0805"
+class = "led"
+temperature = { min = -40, max = 85, page = 3, note = "Topr operating temperature range" }
+
+[datasheet]
+title = "0805 yellow (黄光) chip LED specification"
+document = "Revision A.0"
+url = "https://www.lcsc.com/datasheet/C2296.pdf"
+
+# Page 2 draws the anode as pad ① and the cathode (green mark) as pad ②. These are the KiCad LED footprint's
+# numbers, which put the cathode on pad 1; the cathode mark sets which way the part is placed.
+[pins]
+1 = "K"
+2 = "A"
+
+[[limit]]
+pins = ["K"]
+to = "A"
+abs_max = { min = { none = "forward voltage is set by the forward current, not rated" }, max = 5, page = 3, note = "reverse (backward) voltage VR" }
+recommended = { min = { none = "forward voltage is set by the forward current, not rated" }, max = 5, page = 10, note = "caution 11.6.4: the reverse voltage across the LED shall not be higher than 5 V when lit or tested" }
+
+[[limit]]
+quantity = "current"
+pins = ["A"]
+to = "K"
+abs_max = { min = { none = "the datasheet does not rate reverse current" }, max = 0.025, page = 3, note = "DC forward current IF; 60 mA peak at 1/10 duty, 0.1 ms" }
+recommended = { none = "the datasheet has only an absolute maximum ratings table" }
+
+[[drive]]
+kind = "forward"
+pin = "A"
+to = "K"
+current = 0.01
+range = { min = 1.8, max = 2.4, page = 3, note = "VF at IF = 10 mA" }

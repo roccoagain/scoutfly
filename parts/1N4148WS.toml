@@ -1,0 +1,36 @@
+mpn = "1N4148WS"
+manufacturer = "Jiangsu Changjiang Electronics (JSCJ)"
+description = "100 V 150 mA fast switching diode, SOD-323"
+class = "diode"
+theta_ja = { value = 625, page = 1, note = "RθJA thermal resistance junction to ambient" }
+tj_max = { value = 150, page = 1, note = "Tj junction temperature, maximum ratings" }
+
+[datasheet]
+title = "SOD-323 Plastic-Encapsulate Diodes, BAV16WS/1N4148WS fast switching diode"
+document = "A, May 2011"
+url = "https://www.lcsc.com/datasheet/C2128.pdf"
+
+# The datasheet doesn't number the pins; its symbol has the cathode at the band. KiCad's SOD-323 diode footprints
+# number the cathode 1.
+[pins]
+1 = "K"
+2 = "A"
+
+[[limit]]
+pins = ["K"]
+to = "A"
+abs_max = { min = { none = "forward bias is limited by current, not voltage" }, max = 100, page = 1, note = "VRM non-repetitive peak reverse voltage; VRRM, VRWM and VR are also 100 V" }
+recommended = { min = { none = "forward bias is limited by current, not voltage" }, max = 100, page = 1, note = "VR DC blocking voltage, from the maximum ratings; the datasheet has no recommended operating table" }
+
+[[limit]]
+quantity = "current"
+pins = ["A"]
+to = "K"
+abs_max = { min = { none = "reverse current is set by the reverse voltage and is not rated" }, max = 0.300, page = 1, note = "IFM forward continuous current; IFSM 2.0 A for 1 µs, 1.0 A for 1 s" }
+recommended = { min = { none = "reverse current is set by the reverse voltage and is not rated" }, max = 0.150, page = 1, note = "IO average rectified output current" }
+
+[[drive]]
+kind = "forward"
+pin = "A"
+to = "K"
+range = { min = { none = "only a maximum forward voltage is given" }, max = 1.25, page = 1, note = "VF4 at IF = 150 mA; 0.715 V at 1 mA, 0.855 V at 10 mA, 1.0 V at 50 mA" }

@@ -1,0 +1,35 @@
+mpn = "1N4148W"
+manufacturer = "Semtech Electronics"
+description = "75 V 150 mA fast switching diode, SOD-123"
+class = "diode"
+theta_ja = { value = 312, page = 1, note = "RθJA thermal resistance from junction to ambient air" }
+tj_max = { value = 150, page = 1, note = "Tj junction temperature, absolute maximum ratings" }
+
+[datasheet]
+title = "1N4148W Silicon Epitaxial Planar Switching Diode"
+document = "Rev: 05, dated 20/09/2016"
+url = "https://www.lcsc.com/datasheet/C81598.pdf"
+
+# Pinning table, page 1: 1 cathode, 2 anode.
+[pins]
+1 = "K"
+2 = "A"
+
+[[limit]]
+pins = ["K"]
+to = "A"
+abs_max = { min = { none = "forward bias is limited by current, not voltage" }, max = 75, page = 1, note = "VR reverse voltage; VRM 100 V is a peak rating, not a DC one" }
+recommended = { min = { none = "forward bias is limited by current, not voltage" }, max = 75, page = 1, note = "VR reverse voltage, from the absolute maximum ratings; the datasheet has no recommended operating table" }
+
+[[limit]]
+quantity = "current"
+pins = ["A"]
+to = "K"
+abs_max = { min = { none = "reverse current is set by the reverse voltage and is not rated" }, max = 0.150, page = 1, note = "IF(AV) average rectified forward current; IFSM 0.5 A for 1 s, 1 A for 1 ms, 4 A for 1 µs" }
+recommended = { min = { none = "reverse current is set by the reverse voltage and is not rated" }, max = 0.150, page = 1, note = "IF(AV), the only forward current rating given" }
+
+[[drive]]
+kind = "forward"
+pin = "A"
+to = "K"
+range = { min = { none = "only a maximum forward voltage is given" }, max = 1.25, page = 1, note = "VF at IF = 150 mA; 0.715 V at 1 mA, 0.855 V at 10 mA, 1 V at 50 mA" }

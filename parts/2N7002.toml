@@ -1,0 +1,39 @@
+mpn = "2N7002"
+manufacturer = "Jiangsu Changjiang Electronics (JSCJ)"
+description = "60 V 115 mA N-channel MOSFET, SOT-23"
+class = "ic"
+theta_ja = { value = 556, page = 1, note = "RθJA thermal resistance from junction to ambient" }
+tj_max = { value = 150, page = 1, note = "TJ junction temperature, maximum ratings" }
+
+[datasheet]
+title = "SOT-23 Plastic-Encapsulate MOSFETs, 2N7002 MOSFET (N-channel)"
+document = "J, Sep 2016"
+url = "https://www.lcsc.com/datasheet/C8545.pdf"
+
+# SOT-23 pinning, page 1: 1 gate, 2 source, 3 drain.
+[pins]
+1 = "G"
+2 = "S"
+3 = "D"
+
+[[limit]]
+pins = ["D"]
+to = "S"
+abs_max = { min = { none = "a negative VDS forward-biases the body diode; it is limited by current, not voltage" }, max = 60, page = 1, note = "VDS drain-source voltage, Ta = 25 °C" }
+recommended = { none = "no recommended operating conditions are given" }
+
+[[limit]]
+pins = ["G"]
+to = "S"
+abs_max = { min = -20, max = 20, page = 1, note = "VGS gate-source voltage ±20 V" }
+recommended = { none = "no recommended operating conditions are given" }
+
+# No [[drive]] for the body diode, as for the other MOSFETs: VSD is 0.55 to 1.2 V at IS = 115 mA (page 2).
+
+[[drive]]
+kind = "channel"
+pin = "D"
+to = "S"
+gate = "G"
+range = { min = 1, max = 2.5, page = 2, note = "VGS(th) gate-threshold voltage, VDS = VGS, ID = 250 µA, Ta = 25 °C" }
+on = { vgs = 5, page = 2, note = "RDS(on) at VGS = 5 V, ID = 50 mA: 7 Ω max (5 Ω at VGS = 10 V, ID = 500 mA)" }

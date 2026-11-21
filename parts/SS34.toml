@@ -1,0 +1,37 @@
+mpn = "SS34"
+manufacturer = "MDD (Microdiode Semiconductor)"
+description = "40 V 3 A Schottky barrier rectifier, SMA (DO-214AC)"
+class = "diode"
+tj_max = { value = 125, page = 1, note = "TJ operating junction temperature range, maximum" }
+
+# No theta_ja: the datasheet gives only a typical RθJA (70 °C/W, PCB mounted, note on page 1).
+
+[datasheet]
+title = "SS32 thru SS3200 surface mount Schottky barrier rectifier"
+document = "Rev:2024A5"
+url = "https://www.lcsc.com/datasheet/C8678.pdf"
+
+# The datasheet doesn't number the pins; the color band marks the cathode. KiCad's SMA diode footprints number
+# the cathode 1.
+[pins]
+1 = "K"
+2 = "A"
+
+[[limit]]
+pins = ["K"]
+to = "A"
+abs_max = { min = { none = "forward bias is limited by current, not voltage" }, max = 40, page = 1, note = "VRRM repetitive peak reverse voltage, SS34 column" }
+recommended = { min = { none = "forward bias is limited by current, not voltage" }, max = 40, page = 1, note = "VDC maximum DC blocking voltage, SS34 column; the datasheet has no recommended operating table" }
+
+[[limit]]
+quantity = "current"
+pins = ["A"]
+to = "K"
+abs_max = { min = { none = "reverse current is set by the reverse voltage and is not rated" }, max = 3.0, page = 1, note = "I(AV) average rectified current; IFSM 80 A for an 8.3 ms half sine" }
+recommended = { min = { none = "reverse current is set by the reverse voltage and is not rated" }, max = 3.0, page = 1, note = "I(AV) average rectified current, the only current rating given; derated with lead temperature (fig. 1)" }
+
+[[drive]]
+kind = "forward"
+pin = "A"
+to = "K"
+range = { min = { none = "only a maximum forward voltage is given" }, max = 0.55, page = 1, note = "VF maximum instantaneous forward voltage at 3.0 A" }

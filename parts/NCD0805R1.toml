@@ -1,0 +1,36 @@
+mpn = "NCD0805R1"
+manufacturer = "NationStar"
+description = "Red LED, 0805"
+class = "led"
+temperature = { min = -30, max = 85, page = 1, note = "TOPR operating temperature" }
+
+[datasheet]
+title = "NCD0805R1 chip LED (片式发光二极管)"
+document = "form FGH/BD-0053.01-21B"
+url = "https://www.lcsc.com/datasheet/C84256.pdf"
+
+# The datasheet doesn't number the pins; its outline (page 2) marks the cathode. KiCad's LED footprints number
+# the cathode 1.
+[pins]
+1 = "K"
+2 = "A"
+
+[[limit]]
+pins = ["K"]
+to = "A"
+abs_max = { min = { none = "forward voltage is set by the forward current, not rated" }, max = 5, page = 1, note = "reverse voltage VR" }
+recommended = { none = "the datasheet has only an absolute maximum ratings table" }
+
+[[limit]]
+quantity = "current"
+pins = ["A"]
+to = "K"
+abs_max = { min = { none = "the datasheet does not rate reverse current" }, max = 0.025, page = 1, note = "forward current IF; IFP 50 mA pulsed (0.1 ms, duty 1/10)" }
+recommended = { none = "the datasheet has only an absolute maximum ratings table" }
+
+[[drive]]
+kind = "forward"
+pin = "A"
+to = "K"
+current = 0.020
+range = { min = 1.5, max = 2.6, page = 1, note = "VF at IF = 20 mA; the bin tolerance is ±0.1 V (note 1)" }

@@ -1,0 +1,37 @@
+mpn = "SM4007PL"
+manufacturer = "MDD (Microdiode Semiconductor)"
+description = "1000 V 1 A general purpose rectifier, SOD-123FL"
+class = "diode"
+tj_max = { value = 150, page = 1, note = "TJ operating junction temperature range, maximum" }
+
+# No theta_ja: the datasheet gives only a typical RθJA (180 °C/W, PCB mounted, note on page 1).
+
+[datasheet]
+title = "SM4001PL thru SM4007PL surface mount general purpose silicon rectifier"
+document = "Rev:2025A4"
+url = "https://www.lcsc.com/datasheet/C64898.pdf"
+
+# The datasheet doesn't number the pins; the polarity symbol marks the cathode. KiCad's SOD-123F diode footprints
+# number the cathode 1.
+[pins]
+1 = "K"
+2 = "A"
+
+[[limit]]
+pins = ["K"]
+to = "A"
+abs_max = { min = { none = "forward bias is limited by current, not voltage" }, max = 1000, page = 1, note = "VRRM repetitive peak reverse voltage, SM4007PL column" }
+recommended = { min = { none = "forward bias is limited by current, not voltage" }, max = 1000, page = 1, note = "VDC maximum DC blocking voltage, SM4007PL column; the datasheet has no recommended operating table" }
+
+[[limit]]
+quantity = "current"
+pins = ["A"]
+to = "K"
+abs_max = { min = { none = "reverse current is set by the reverse voltage and is not rated" }, max = 1.0, page = 1, note = "I(AV) average rectified current (note 1: averaged over any 20 ms); IFSM 25 A for an 8.3 ms half sine" }
+recommended = { min = { none = "reverse current is set by the reverse voltage and is not rated" }, max = 1.0, page = 1, note = "I(AV), the only current rating given; derated with temperature (fig. 1)" }
+
+[[drive]]
+kind = "forward"
+pin = "A"
+to = "K"
+range = { min = { none = "only a maximum forward voltage is given" }, max = 1.1, page = 1, note = "VF maximum instantaneous forward voltage at 1.0 A" }
